@@ -1,0 +1,12 @@
+<span
+ class="glyphicon glyphicon-heart"
+ [class.highlighted]="isActive"  
+ (click)="onClick()">
+</span>
+ <!-- we can either use ngClass instead of 2 classes -->
+<!-- [ngClass]= "{
+    'glyphicon-star': isSelected,
+    'glyphicon-star-empty': !isSelected
+}" -->
+
+<span>{{ likesCount }}</span>

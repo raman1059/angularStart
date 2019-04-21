@@ -1,2 +1,92 @@
-<h1> Angular </h1>
-<authors></authors>
+<favorite [is-favorite] = "post.isFavorite" (change)="onFavoriteChanged($event)"></favorite>
+
+<span
+class="glyphicon"
+[class.glyphicon-user]="isSelected"
+></span>
+
+<bootstrap-panel>
+    <ng-container class="heading">Heading</ng-container>
+    <div class="body">
+        <h2>Body</h2>
+        <p>Some content here...</p>
+    </div>
+</bootstrap-panel>
+
+<like
+    [likesCount] = "tweet.likesCount"
+    [isActive] = "tweet.isLiked"
+></like>
+<br>
+<div *ngIf="courses.length > 0; then courseList else noCourses"></div>    <!--when ever using structural directive, we need to prefix the with an asterisk-->
+<ng-template  #courseList>
+    List of Courses.
+</ng-template>
+
+<ng-template #noCourses>
+    No courses yet.
+</ng-template>
+<br>
+
+<div [hidden]="courses.length ==0">
+    List of Courses.
+</div>
+<div [hidden]="courses.length > 0">
+    No Courses yet.
+</div>
+<br>
+
+<ul class="nav nav-pills">
+    <li [class.active]="viewMode == 'map'"><a (click)="viewMode ='map'">Map view</a></li>
+    <li [class.active]="viewMode == 'list'"><a (click)="viewMode ='list'">List view</a></li>
+</ul>
+<div [ngSwitch]="viewMode">
+   <div *ngSwitchCase="'map'">Map view Content</div>
+   <div *ngSwitchCase="'list'">List view Content</div>
+   <div *ngSwitchDefault>Otherwise</div>
+</div>
+<br>
+<button (click)= " loadCourses()">Initial Courses</button>
+
+<ul>
+    <li *ngFor= "let course of courses; even as isEven; trackBy: trackCourse">
+      {{ course.name }} <span *ngIf= "isEven">(Odd)</span>
+      <button (click)= "onRemove(course)">Remove</button>
+      <button (click)= "onChange(course)">Change</button>
+    </li>
+    <button (click)= "onAdd()">Add</button>
+</ul>
+<br>
+<button
+ [style.backgroundColor]="canSave ? 'blue': 'grey'"
+ [style.color]="canSave ? 'white': 'black'"
+ [style.fontWeight]="canSave ? 'bold': 'normal'"
+>
+ Save   
+</button>
+<!-- we can use style binding either.
+[ngStyle]="{
+   'backgroundColor': canSave ? 'blue': 'grey',
+   'color': canSave ? 'white': 'black',
+   'fontWeight: canSave ? 'bold': 'normal'
+}" -->
+<br>
+
+<!-- Safe traversal operator -->
+<span>
+    {{ task.assignee?.name }}   
+</span>
+
+<input type="text" [appInputFormat]="'lowercase'">
+<br>
+<br>
+
+<zippy title="Shippng Details">
+        Shipping Details Content...
+      </zippy>
+      <zippy title="Billing Details">
+        Billing Details Content...
+      </zippy>
+     
+      <contact-form></contact-form>
+      <new-course-form></new-course-form>
